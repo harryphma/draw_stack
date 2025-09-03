@@ -1,0 +1,345 @@
+:root {
+  --ds-blue: #4fa3ff;
+  --ds-green: #38b26f;
+  --ds-orange: #ffa451;
+  --ds-canvas: #f7f4ef;
+  --ds-text: #1f2937;
+  --ds-ink: #0b0f14;
+}
+
+.canvas-root {
+  --dot: #d3d3d3;
+  background: radial-gradient(var(--dot) 1px, transparent 1px) 0 0 / 20px 20px, var(--ds-canvas);
+}
+
+/* App Layout */
+.draw-stack-app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-canvas);
+  color: var(--ds-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+}
+
+.main-layout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Topbar */
+.topbar {
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.topbar h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ds-ink);
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Toolbar */
+.toolbar {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e5e7eb;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--ds-ink);
+  letter-spacing: -0.025em;
+}
+
+.node-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.node-button {
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.node-button:hover {
+  border-color: var(--ds-blue);
+  box-shadow: 0 2px 8px rgba(79, 163, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.node-button:active {
+  transform: translateY(0);
+}
+
+.file-actions {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Inspector */
+.inspector {
+  width: 320px;
+  background: white;
+  border-left: 1px solid #e5e7eb;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: -1px 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.inspector h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--ds-ink);
+  letter-spacing: -0.025em;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--ds-text);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--ds-blue);
+  box-shadow: 0 0 0 3px rgba(79, 163, 255, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+/* Canvas */
+.canvas-container {
+  flex: 1;
+  position: relative;
+}
+
+/* Enhanced React Flow node styling with better shadows and hover effects */
+.react-flow__node-custom {
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  color: white;
+  padding: 16px;
+  min-width: 120px;
+  text-align: center;
+  font-weight: 500;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.react-flow__node-custom:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.react-flow__node-custom.selected {
+  box-shadow: 0 0 0 2px var(--ds-blue), 0 8px 20px rgba(79, 163, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.react-flow__node-custom .node-label {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Node Colors */
+.node-frontend {
+  background: var(--ds-blue);
+}
+
+.node-backend {
+  background: var(--ds-green);
+}
+
+.node-database {
+  background: var(--ds-orange);
+  color: #231f18;
+}
+
+/* Enhanced React Flow edge styling with smooth animations */
+.react-flow__edge-path {
+  stroke: var(--ds-ink);
+  stroke-opacity: 0.7;
+  stroke-width: 2;
+  transition: all 0.2s ease;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke-opacity: 0.9;
+  stroke-width: 3;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--ds-blue);
+  stroke-opacity: 1;
+  stroke-width: 3;
+}
+
+.react-flow__edge .react-flow__edge-path {
+  stroke-linecap: round;
+}
+
+/* Enhanced button styling with better hover states */
+.btn {
+  padding: 8px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  letter-spacing: -0.025em;
+}
+
+.btn:hover {
+  border-color: var(--ds-blue);
+  background: #f8faff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 163, 255, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: var(--ds-blue);
+  color: white;
+  border-color: var(--ds-blue);
+}
+
+.btn-primary:hover {
+  background: #3d8bff;
+  box-shadow: 0 2px 8px rgba(79, 163, 255, 0.25);
+}
+
+/* React Flow control styling customization */
+.react-flow__controls {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--ds-blue);
+  color: white;
+}
+
+/* Minimap styling improvements */
+.react-flow__minimap {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+/* Custom scrollbar styling for panels */
+.toolbar::-webkit-scrollbar,
+.inspector::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toolbar::-webkit-scrollbar-track,
+.inspector::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.toolbar::-webkit-scrollbar-thumb,
+.inspector::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.toolbar::-webkit-scrollbar-thumb:hover,
+.inspector::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Loading and empty states */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: var(--ds-text);
+  opacity: 0.6;
+  text-align: center;
+}
+
+.empty-state h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
