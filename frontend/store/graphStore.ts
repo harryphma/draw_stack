@@ -23,6 +23,26 @@ export const useGraphStore = create<GraphState>((set, get) => ({
   selectedNodeId: null,
   defaultNodeShape: "rectangle" as NodeShape,
   defaultEdgeStyle: "solid" as EdgeStyle,
+  isHydrated: false,
+
+  hydrate: () => {
+    if (typeof window !== "undefined" && !get().isHydrated) {
+      const savedData = loadFromLocalStorage(STORAGE_KEY)
+      if (savedData) {
+        set((state) => ({
+          ...state,
+          nodes: savedData.nodes || [],
+          edges: savedData.edges || [],
+          categories: { ...initialCategories, ...(savedData.categories || {}) },
+          defaultNodeShape: savedData.defaultNodeShape || "rectangle",
+          defaultEdgeStyle: savedData.defaultEdgeStyle || "solid",
+          isHydrated: true,
+        }))
+      } else {
+        set((state) => ({ ...state, isHydrated: true }))
+      }
+    }
+  },
 
   addNode: (category: CategoryKey) => {
     const id = generateId()
@@ -165,10 +185,4 @@ export const useGraphStore = create<GraphState>((set, get) => ({
   },
 }))
 
-// Auto-load from localStorage on initialization
-if (typeof window !== "undefined") {
-  const savedData = loadFromLocalStorage(STORAGE_KEY)
-  if (savedData) {
-    useGraphStore.getState().load(JSON.stringify(savedData))
-  }
-}
+// Auto-load from localStorage on initialization - moved to useEffect to prevent SSR issues

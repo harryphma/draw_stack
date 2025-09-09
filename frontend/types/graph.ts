@@ -29,6 +29,8 @@ export interface GraphState {
   selectedNodeId: string | null
   defaultNodeShape: NodeShape
   defaultEdgeStyle: EdgeStyle
+  isHydrated: boolean
+  hydrate: () => void
   addNode: (cat: CategoryKey) => void
   updateNode: (id: string, patch: Partial<NodeData>) => void
   addCategory: (name: string, color: string) => CategoryKey
